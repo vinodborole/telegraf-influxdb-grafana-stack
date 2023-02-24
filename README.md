@@ -11,9 +11,9 @@ docker-compose up -d
 # Clean up
 docker-compose down
 
-docker volume rm tig_influxdb_data
+docker volume rm telegraf-influxdb-grafana-stack_grafana_data
 
-docker volume rm tig_grafana_data
+docker volume rm telegraf-influxdb-grafana-stack_influxdb_data
 
 
 
