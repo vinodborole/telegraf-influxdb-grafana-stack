@@ -24,3 +24,8 @@ docker volume rm telegraf-influxdb-grafana-stack_influxdb_data
 failed to upgrade legacy queries datasource ${ds_influxdb_telegraf} was not found
 
 2. Wait for few minutes on the dashboard to see the data, refresh the page manually after couple of minute to reflect system data
+
+
+# Telegraf System Dashboard
+
+![All system stats pulled from telegraf agent](/telegraf-system-dashboard.png "Telegraf System Dashboard")
