@@ -7,6 +7,8 @@ Clone the repo and run following command
 
 docker-compose up -d
 
+Open http://localhost:3000 in your browser with credentials [admin/admin]
+
 
 # Clean up
 docker-compose down
