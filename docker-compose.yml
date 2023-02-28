@@ -12,7 +12,7 @@ services:
     links:
       - influxdb
     ports:
-    - '8125:8125'
+    - '8094:8094'
 
   influxdb:
     image: influxdb:1.8-alpine
@@ -46,6 +46,17 @@ services:
       - ./grafana/provisioning/grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yml:ro
       - ./grafana/provisioning/telegraf-system-dashboard.json:/var/lib/grafana/dashboards/telegraf-system-dashboard.json:ro
       - grafana_data:/var/lib/grafana
+
+  telegraf_datagen:
+    image: telegraf_datagen
+    container_name: telegraf_datagen
+    restart: always
+    depends_on:
+      - telegraf
+    links:
+      - telegraf    
+    ports:
+      - '8080:8080'
       
 volumes:
   grafana_data: {}
