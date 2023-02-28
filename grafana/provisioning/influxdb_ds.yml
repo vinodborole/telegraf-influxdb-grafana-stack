@@ -8,3 +8,13 @@ datasources:
   user: admin
   password: admin
   uid: PED2C6FA889E4A459
+
+- name: Influx_Socket
+  access: proxy
+  type: influxdb
+  url: http://influxdb:8086
+  isDefault: true
+  database: socket
+  user: admin
+  password: admin
+  uid: PED2C6FA889E4A460
