@@ -48,6 +48,15 @@ services:
       - ./grafana/provisioning/grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yml:ro
       - ./grafana/provisioning/telegraf-system-dashboard.json:/var/lib/grafana/dashboards/telegraf-system-dashboard.json:ro
       - grafana_data:/var/lib/grafana
+  frontend:
+    build: ./frontend/myapp
+    restart: always
+    ports:
+      - "3001:3000"
+    image: react_frontend
+    container_name: react_frontend
+    command: npm start
+
   
 volumes:
   grafana_data: {}
