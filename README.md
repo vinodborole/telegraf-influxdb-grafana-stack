@@ -11,6 +11,8 @@ Clone the repo and run following command as per the choice
 
 docker-compose -f docker-compose-datagen.yml up -d
 
+Open http://localhost:3001 in your browser that opens up the react app that embeds the grafana widgets
+
 ## Showcase VM Stats
 
 docker-compose up -d
