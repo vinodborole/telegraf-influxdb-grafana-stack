@@ -6,7 +6,7 @@ services:
     container_name: telegraf
     restart: always
     volumes:
-    - ./telegraf/vm-stats/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     depends_on:
       - influxdb
     links:
@@ -48,7 +48,18 @@ services:
       - ./grafana/provisioning/grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yml:ro
       - ./grafana/provisioning/telegraf-system-dashboard.json:/var/lib/grafana/dashboards/telegraf-system-dashboard.json:ro
       - grafana_data:/var/lib/grafana
-  
+
+  telegraf_datagen:
+    image: telegraf_datagen
+    container_name: telegraf_datagen
+    restart: always
+    depends_on:
+      - telegraf
+    links:
+      - telegraf    
+    ports:
+      - '8080:8080'
+      
 volumes:
   grafana_data: {}
   influxdb_data: {}

@@ -5,12 +5,19 @@ Telegraf, Influxdb and Grafana stack with pre-provisioned datasource and dashboa
 
 This project depends on the image from this repo https://github.com/vinodborole/telegraf_datagen follow the steps from this repo's readme, generate the image and then follow below steps
 
-Clone the repo and run following command
+Clone the repo and run following command as per the choice
+
+## With custom data generated pushed using socket listener
+
+docker-compose -f docker-compose-datagen.yml up -d
+
+## Showcase VM Stats
 
 docker-compose up -d
 
-Open http://localhost:3000 in your browser with credentials [admin/admin]
 
+
+Open http://localhost:3000 in your browser with credentials [admin/admin]
 
 # Clean up
 docker-compose down
