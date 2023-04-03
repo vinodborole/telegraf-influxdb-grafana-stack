@@ -95,10 +95,10 @@ const BenchmarkGraph = () => {
           id="time-range-select"
           onChange={handleTimeRangeChange}
           value={timeRange}
-          className="px-4 py-2 rounded-md mt-4 mx-2"
+          className="px-4 py-2 rounded-md mt-4 mx-2 dark:bg-gray-800 dark:text-white"
         >
           {Object.keys(timeRanges).map((key) => (
-            <option key={key} value={key}>
+            <option key={key} value={key} className="dark:text-white">
               {key}
             </option>
           ))}
@@ -108,11 +108,12 @@ const BenchmarkGraph = () => {
           id="refresh-range-select"
           onChange={handleRefreshRangeChange}
           value={refreshTime}
-          className="px-4 py-2 rounded-md mt-4 mx-2"
+          placeholder="refresh"
+          className="px-4 py-2 rounded-md mt-4 mx-2  dark:bg-gray-800  dark:text-white"
           data-dropdown-toggle="dropdownHover"
         >
           {Object.keys(refreshRanges).map((key) => (
-            <option key={key} value={key}>
+            <option key={key} value={key} className="dark:text-white">
               {key}
             </option>
           ))}
