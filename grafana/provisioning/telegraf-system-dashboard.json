@@ -1,40 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "PED2C6FA889E4A459",
-      "label": "InfluxDB telegraf",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "6.3.0-beta4"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "singlestat",
-      "name": "Singlestat",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -62,7 +26,6 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 928,
   "graphTooltip": 1,
-  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -154,7 +117,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -272,7 +235,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -390,7 +353,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -508,7 +471,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -626,7 +589,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -743,7 +706,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -805,7 +768,15 @@
         }
       ],
       "title": "CPU usage",
-      "type": "gauge"
+      "transparent": true,
+      "type": "gauge",
+      "styles": [
+        {
+          "type":"background",
+          "backgroundColor":"#424242",
+          "fillOpacity":1
+        }
+      ]
     },
     {
       "datasource": {
@@ -872,7 +843,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -922,6 +893,7 @@
         }
       ],
       "title": "RAM usage",
+      "transparent": true,
       "type": "gauge"
     },
     {
@@ -990,7 +962,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -1040,6 +1012,7 @@
         }
       ],
       "title": "Swap usage",
+      "transparent": true,
       "type": "gauge"
     },
     {
@@ -1108,7 +1081,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -1233,7 +1206,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -1372,7 +1345,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -7775,7 +7748,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 155
+        "y": 171
       },
       "id": 62056,
       "panels": [],
@@ -7810,7 +7783,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 156
+        "y": 172
       },
       "id": 52240,
       "interval": "$inter",
@@ -7955,7 +7928,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 156
+        "y": 172
       },
       "id": 33458,
       "interval": "$inter",
@@ -8151,7 +8124,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 187
+        "y": 203
       },
       "id": 62057,
       "panels": [],
@@ -8182,7 +8155,7 @@
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 188
+        "y": 204
       },
       "id": 62001,
       "legend": {
@@ -8310,7 +8283,7 @@
         "h": 7,
         "w": 6,
         "x": 6,
-        "y": 188
+        "y": 204
       },
       "id": 62004,
       "legend": {
@@ -8438,7 +8411,7 @@
         "h": 7,
         "w": 6,
         "x": 12,
-        "y": 188
+        "y": 204
       },
       "id": 62003,
       "legend": {
@@ -8566,7 +8539,7 @@
         "h": 7,
         "w": 6,
         "x": 18,
-        "y": 188
+        "y": 204
       },
       "id": 62002,
       "legend": {
@@ -8734,7 +8707,8 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 37,
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "influxdb",
@@ -8831,8 +8805,8 @@
       {
         "current": {
           "selected": false,
-          "text": "192.xxx.0.xxx",
-          "value": "192.xxx.0.xxx"
+          "text": "4da574452f9f",
+          "value": "4da574452f9f"
         },
         "datasource": {
           "type": "influxdb",
@@ -8984,5 +8958,21 @@
   "title": "Telegraf: System Dashboard",
   "uid": "000000128",
   "version": 1,
-  "weekStart": ""
+  "weekStart": "",
+  "rows": [
+    {
+      "panels": [
+        {
+          "type": "graph",
+          "title": "Panel Title",
+          "targets": [],
+          "options": {
+            "css": ".dashboard-container.dark-mode { background-color: #1c3342; }"
+          },
+          "id": 1
+        }
+      ]
+    }
+  ]
+
 }
