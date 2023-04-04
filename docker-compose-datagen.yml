@@ -40,6 +40,7 @@ services:
       - GF_AUTH_BASIC_ENABLED=false
       - GF_ALERTING_ENABLED=false
       - GF_UNIFIED_ALERTING_ENABLED=false
+      
     links:
       - influxdb
     ports:

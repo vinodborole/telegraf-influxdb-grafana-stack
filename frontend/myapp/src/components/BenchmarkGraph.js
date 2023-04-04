@@ -91,12 +91,7 @@ const BenchmarkGraph = () => {
       />
 
       <div className="flex flex-row justify-end">
-        <select
-          id="time-range-select"
-          onChange={handleTimeRangeChange}
-          value={timeRange}
-          className="px-4 py-2 rounded-md mt-4 mx-2 dark:bg-gray-800 dark:text-white"
-        >
+        <select id="time-range-select" onChange={handleTimeRangeChange} value={timeRange} className="px-4 py-2 rounded-md mt-4 mx-2 dark:bg-gray-800 dark:text-white">
           {Object.keys(timeRanges).map((key) => (
             <option key={key} value={key} className="dark:text-white">
               {key}
@@ -104,14 +99,7 @@ const BenchmarkGraph = () => {
           ))}
         </select>
 
-        <select
-          id="refresh-range-select"
-          onChange={handleRefreshRangeChange}
-          value={refreshTime}
-          placeholder="refresh"
-          className="px-4 py-2 rounded-md mt-4 mx-2  dark:bg-gray-800  dark:text-white"
-          data-dropdown-toggle="dropdownHover"
-        >
+        <select id="refresh-range-select" onChange={handleRefreshRangeChange} value={refreshTime} placeholder="refresh" className="px-4 py-2 rounded-md mt-4 mx-2  dark:bg-gray-800  dark:text-white" data-dropdown-toggle="dropdownHover">
           {Object.keys(refreshRanges).map((key) => (
             <option key={key} value={key} className="dark:text-white">
               {key}
@@ -136,6 +124,7 @@ const BenchmarkGraph = () => {
           <iframe
             className=" flex-wrap rounded-1g overflow-hidden justify-between p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 "
             src={source.src}
+            
             width="100%"
             height="450"
           />
