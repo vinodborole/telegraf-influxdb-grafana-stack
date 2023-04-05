@@ -47,7 +47,6 @@ services:
       - ./grafana/provisioning/influxdb_ds.yml:/etc/grafana/provisioning/datasources/influxdb_ds.yml:ro
       - ./grafana/provisioning/grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yml:ro
       - ./grafana/provisioning/telegraf-system-dashboard.json:/var/lib/grafana/dashboards/telegraf-system-dashboard.json:ro
-      - ./grafana/_variables.dark.generated.scss:/usr/share/grafana/public/sass/_variables.dark.generated.scss:rw
       - grafana_data:/var/lib/grafana
 
 

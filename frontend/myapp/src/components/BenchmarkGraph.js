@@ -4,7 +4,7 @@ import { getGrafanaGraphSnapshot } from "./BenchmarkSources";
 import BenchmarkGraphHeader from "./BenchmarkGraphHeader";
 import "../index.css"
 import "./scrollbar.css"
-import "./panel.css"
+
 
 const timeRanges = {
   "Last 5 minutes": "now-5m",
