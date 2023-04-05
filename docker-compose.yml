@@ -27,7 +27,7 @@ services:
       - influxdb_data:/var/lib/influxdb
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana
     container_name: grafana-server
     restart: always
     depends_on:
@@ -38,8 +38,7 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_BASIC_ENABLED=false
       - GF_ALERTING_ENABLED=false
-      - GF_UNIFIED_ALERTING_ENABLED=false
-  
+      - GF_UNIFIED_ALERTING_ENABLED=false  
     links:
       - influxdb
     ports:

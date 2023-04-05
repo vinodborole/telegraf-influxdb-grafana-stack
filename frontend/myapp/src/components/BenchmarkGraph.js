@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getGrafanaSourceSnapshot } from "./BenchmarkSources";
 import { getGrafanaGraphSnapshot } from "./BenchmarkSources";
 import BenchmarkGraphHeader from "./BenchmarkGraphHeader";
+import "../index.css"
+import "./scrollbar.css"
+
 
 const timeRanges = {
   "Last 5 minutes": "now-5m",
@@ -17,6 +20,9 @@ const timeRanges = {
 };
 
 const refreshRanges = {
+  "5s":"5s",
+  "10s":"10s",
+  "30s":"30s",
   "1m": "1m",
   "2m": "2m",
   "5m": "5m",
@@ -84,19 +90,14 @@ const BenchmarkGraph = () => {
   };
 
   return (
-    <div className="bg-gray-200 dark:bg-dark-teal overflow-hidden overflow-x-hidden" >
+    <div class="bg-gray-200 dark:bg-dark-teal overflow-x-hidden container" >
       <BenchmarkGraphHeader
         isDarkTheme={isDarkTheme}
         toggleTheme={toggleTheme}
       />
 
       <div className="flex flex-row justify-end">
-        <select
-          id="time-range-select"
-          onChange={handleTimeRangeChange}
-          value={timeRange}
-          className="px-4 py-2 rounded-md mt-4 mx-2 dark:bg-gray-800 dark:text-white"
-        >
+        <select id="time-range-select" onChange={handleTimeRangeChange} value={timeRange} className="px-4 py-2 rounded-md mt-4 mx-2 dark:bg-gray-800 dark:text-white">
           {Object.keys(timeRanges).map((key) => (
             <option key={key} value={key} className="dark:text-white">
               {key}
@@ -104,14 +105,7 @@ const BenchmarkGraph = () => {
           ))}
         </select>
 
-        <select
-          id="refresh-range-select"
-          onChange={handleRefreshRangeChange}
-          value={refreshTime}
-          placeholder="refresh"
-          className="px-4 py-2 rounded-md mt-4 mx-2  dark:bg-gray-800  dark:text-white"
-          data-dropdown-toggle="dropdownHover"
-        >
+        <select id="refresh-range-select" onChange={handleRefreshRangeChange} value={refreshTime} placeholder="refresh" className="px-4 py-2 rounded-md mt-4 mx-2  dark:bg-gray-800  dark:text-white" data-dropdown-toggle="dropdownHover">
           {Object.keys(refreshRanges).map((key) => (
             <option key={key} value={key} className="dark:text-white">
               {key}
@@ -124,7 +118,7 @@ const BenchmarkGraph = () => {
       <div className="flex flex-wrap rounded-1g p-4 overflow-hidden justify-between bg-gray-200 dark:bg-dark-teal">
         {sourcesToShow.map((source) => (
           <iframe
-            className=" flex-wrap rounded-1g overflow-hidden justify-between p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 "
+            className=" flex-wrap rounded-1g overflow-hidden justify-between p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 panel"
             src={source.src}
             width="200"
             height="200"
@@ -134,8 +128,9 @@ const BenchmarkGraph = () => {
       <div className="bg-gray-200 dark:bg-dark-teal w-full p-4 text-center overflow-hidden">
         {graphsToShow.map((source) => (
           <iframe
-            className=" flex-wrap rounded-1g overflow-hidden justify-between p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 "
+            className=" flex-wrap rounded-1g overflow-hidden justify-between p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 panel"
             src={source.src}
+            
             width="100%"
             height="450"
           />
