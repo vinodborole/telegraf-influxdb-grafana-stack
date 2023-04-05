@@ -4,6 +4,8 @@ import { ReactComponent as Logo_Dark } from "./logo-2-dark.svg";
 import "../index.css";
 
 function BenchmarkGraphHeader({ isDarkTheme, toggleTheme }) {
+
+  
   return (
     <header className="flex items-center justify-between p-4 bg-gray-100 dark:bg-gray-900  mx-auto w-screen border-orange-500 overflow-hidden">
       {isDarkTheme ? <Logo /> : <Logo_Dark />}

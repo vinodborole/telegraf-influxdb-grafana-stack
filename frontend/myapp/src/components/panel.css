@@ -1,0 +1,11 @@
+
+
+  .panel {
+    padding: 12px;
+    margin-top: 20px;
+    background-color:red;
+  }
+
+  .panel-content{
+    background-color: aquamarine;
+  }
