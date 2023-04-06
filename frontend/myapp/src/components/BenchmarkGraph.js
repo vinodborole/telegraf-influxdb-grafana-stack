@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getGrafanaSourceSnapshot } from "./BenchmarkSources";
+import { getGrafanaGraphSnapshot } from "./BenchmarkSources";
+import BenchmarkGraphHeader from "./BenchmarkGraphHeader";
+import "../index.css"
+import "./scrollbar.css"
+import "./panel.css"
+
 
 const timeRanges = {
   "Last 5 minutes": "now-5m",
@@ -14,16 +20,34 @@ const timeRanges = {
   "Last 7 days": "now-7d",
 };
 
+const refreshRanges = {
+  "5s":"5s",
+  "10s":"10s",
+  "30s":"30s",
+  "1m": "1m",
+  "2m": "2m",
+  "5m": "5m",
+  "10m": "10m",
+  "30m": "30m",
+  "1h": "1h",
+  "3h": "3h",
+  "1d": "1d",
+};
+
 const BenchmarkGraph = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [timeRange, setTimeRange] = useState("Last 5 minutes");
   const [fromDate, setFromDate] = useState("now-5m");
   const [toDate, setToDate] = useState("now");
-
- 
+  const [refreshTime, setRefreshTime] = useState("1m");
 
   const grafanaSources = getGrafanaSourceSnapshot();
   const sourcesToShow = Object.values(grafanaSources);
+
+  const grafanaGraphs = getGrafanaGraphSnapshot();
+  const graphsToShow = Object.values(grafanaGraphs);
+
+  const itemsToShow = [...sourcesToShow, ...graphsToShow];
 
   function datetimeLocaltoUnix(datetime) {
     if (datetime.startsWith("now")) {
@@ -36,18 +60,22 @@ const BenchmarkGraph = () => {
 
   useEffect(() => {
     setFromDate(timeRanges[timeRange]);
-  }, [timeRange]);
+    setRefreshTime(refreshRanges[refreshTime]);
+  }, [timeRange, refreshTime]);
 
-  sourcesToShow.forEach((source) => {
+  itemsToShow.forEach((source) => {
     const url = new URL(source.src);
     url.searchParams.set("theme", isDarkTheme ? "dark" : "light");
     url.searchParams.set("from", datetimeLocaltoUnix(fromDate));
     url.searchParams.set("to", datetimeLocaltoUnix(toDate));
+    url.searchParams.set("refresh", refreshTime);
     source.src = url.toString();
   });
 
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
+    const body = document.querySelector("body");
+    body.classList.toggle("dark", !isDarkTheme);
   };
   const handleFromDateChange = (event) => {
     setFromDate(event.target.value);
@@ -58,35 +86,57 @@ const BenchmarkGraph = () => {
   const handleTimeRangeChange = (event) => {
     setTimeRange(event.target.value);
   };
+  const handleRefreshRangeChange = (event) => {
+    setRefreshTime(event.target.value);
+  };
 
   return (
-    <div>
-      <h2>Grafana Dashboard</h2>
-      <button onClick={toggleTheme}>
-        {isDarkTheme ? "Switch to Light Theme" : "Switch to Dark Theme"}
-      </button>
+    <div class="bg-gray-200 dark:bg-dark-teal overflow-x-hidden container" >
+      <BenchmarkGraphHeader
+        isDarkTheme={isDarkTheme}
+        toggleTheme={toggleTheme}
+      />
 
-      <div>
-        <label htmlFor="from-date">From:</label>
-        <input id="from-date" type="datetime-local" name="from-date" value={fromDate} onChange={handleFromDateChange}/>
-        <label htmlFor="to-date">To:</label>
-        <input id="to-date" type="datetime-local" name="to-date" value={toDate} onChange={handleToDateChange}/>
-        <label htmlFor="time-range-select">Select Time Range:</label>
-
-        <select id="time-range-select" onChange={handleTimeRangeChange} value={timeRange}>
+      <div className="flex flex-row justify-end">
+        <select id="time-range-select" onChange={handleTimeRangeChange} value={timeRange} className="px-4 py-2 rounded-md mt-4 mx-2 dark:bg-gray-900 dark:text-white shadow-md">
           {Object.keys(timeRanges).map((key) => (
-            <option key={key} value={key}>
+            <option key={key} value={key} className="dark:text-white">
               {key}
             </option>
           ))}
         </select>
 
-        <button type="button" onClick={() => {setFromDate("now-5m");setToDate("now");}}>reset</button>
+        <select id="refresh-range-select" onChange={handleRefreshRangeChange} value={refreshTime} placeholder="refresh" className="px-4 py-2 rounded-md mt-4 mx-2  dark:bg-gray-900  dark:text-white shadow-md">
+          {Object.keys(refreshRanges).map((key) => (
+            <option key={key} value={key} className="dark:text-white">
+              {key}
+            </option>
+          ))}
+        </select>
+
       </div>
 
-      <div>
+      <div className="flex flex-wrap rounded-1g p-4 overflow-hidden justify-between bg-gray-200 dark:bg-dark-teal">
         {sourcesToShow.map((source) => (
-          <iframe src={source.src} width="450" height="200" />
+          <iframe
+            //className=" flex-wrap rounded-1g overflow-hidden justify-between p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 panel"
+            className="grafana-iframe"
+            src={source.src}
+            width="200"
+            height="200"
+          />
+        ))}
+      </div>
+      <div className="bg-gray-200 dark:bg-dark-teal w-full p-4 text-center overflow-hidden">
+        {graphsToShow.map((source) => (
+          <iframe
+            //className=" flex-wrap rounded-1g overflow-hidden justify-between p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 panel"
+            className="grafana-iframe"
+            src={source.src}
+            
+            width="100%"
+            height="450"
+          />
         ))}
       </div>
     </div>
