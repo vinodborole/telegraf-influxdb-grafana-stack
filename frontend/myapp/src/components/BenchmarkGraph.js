@@ -91,14 +91,14 @@ const BenchmarkGraph = () => {
   };
 
   return (
-    <div class="bg-gray-200 dark:bg-dark-teal overflow-x-hidden container" >
+    <div class="bg-gray-200 dark:bg-dark-teal overflow-x-hidden flex-auto w-auto" >
       <BenchmarkGraphHeader
         isDarkTheme={isDarkTheme}
         toggleTheme={toggleTheme}
       />
 
       <div className="flex flex-row justify-end">
-        <select id="time-range-select" onChange={handleTimeRangeChange} value={timeRange} className="px-4 py-2 rounded-md mt-4 mx-2 dark:bg-gray-900 dark:text-white shadow-md">
+        <select id="time-range-select" onChange={handleTimeRangeChange} value={timeRange} className="px-4 py-2 rounded-md mt-4 mx-2 dark:bg-gray-800 dark:text-white shadow-md">
           {Object.keys(timeRanges).map((key) => (
             <option key={key} value={key} className="dark:text-white">
               {key}
@@ -106,7 +106,7 @@ const BenchmarkGraph = () => {
           ))}
         </select>
 
-        <select id="refresh-range-select" onChange={handleRefreshRangeChange} value={refreshTime} placeholder="refresh" className="px-4 py-2 rounded-md mt-4 mx-2  dark:bg-gray-900  dark:text-white shadow-md">
+        <select id="refresh-range-select" onChange={handleRefreshRangeChange} value={refreshTime} placeholder="refresh" className="px-4 py-2 rounded-md mt-4 mx-2  dark:bg-gray-800  dark:text-white shadow-md">
           {Object.keys(refreshRanges).map((key) => (
             <option key={key} value={key} className="dark:text-white">
               {key}
@@ -116,22 +116,23 @@ const BenchmarkGraph = () => {
 
       </div>
 
-      <div className="flex flex-wrap rounded-1g p-4 overflow-hidden justify-between bg-gray-200 dark:bg-dark-teal">
+      <div className="flex flex-wrap rounded-1g p-4 gap-4 overflow-hidden justify-between bg-gray-200 dark:bg-dark-teal">
         {sourcesToShow.map((source) => (
           <iframe
-            //className=" flex-wrap rounded-1g overflow-hidden justify-between p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 panel"
-            className="grafana-iframe"
+           className="grafana-iframe"
             src={source.src}
-            width="200"
-            height="200"
+            width="auto"
+            height="auto"
+           
           />
         ))}
       </div>
-      <div className="bg-gray-200 dark:bg-dark-teal w-full p-4 text-center overflow-hidden">
+      <div className="relative pb-56.25 overflow-hidden p-4 w-100%">
+        
         {graphsToShow.map((source) => (
           <iframe
-            //className=" flex-wrap rounded-1g overflow-hidden justify-between p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 panel"
             className="grafana-iframe"
+
             src={source.src}
             
             width="100%"
