@@ -1,5 +1,5 @@
 const host = "localhost";
-const grafanaUrl = `http://${host}:3000`;
+const grafanaUrl = `http://${host}:300`;
 
 const grafanaSourceSnap = {
   cpuusage: {

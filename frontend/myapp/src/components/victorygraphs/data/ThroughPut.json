@@ -1,0 +1,22 @@
+{
+  "cells": {
+    "0": {
+      "throughput": {
+        "dl_bitrate": 1200000000,
+        "ul_bitrate": 1918759.1632267497
+      }
+    },
+    "1": {
+      "throughput": {
+        "dl_bitrate": 700000000,
+        "ul_bitrate": 299770.69531998533
+      }
+    },
+    "2": {
+      "throughput": {
+        "dl_bitrate": 900000000,
+        "ul_bitrate": 79977045.69531998533
+      }
+    }
+  }
+}

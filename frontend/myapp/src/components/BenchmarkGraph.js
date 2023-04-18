@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { getGrafanaSourceSnapshot } from "./BenchmarkSources";
 import { getGrafanaGraphSnapshot } from "./BenchmarkSources";
 import BenchmarkGraphHeader from "./BenchmarkGraphHeader";
-import "../index.css"
-import "./scrollbar.css"
-import "./panel.css"
-
+import "../index.css";
+import "./scrollbar.css";
+import "./panel.css";
+import ThroughPutGraph from "./victorygraphs/ThroughPutGraph";
+import PacketsGraph from "./victorygraphs/PacketsGraph";
+import Scheduled from "./victorygraphs/Scheduled";
 
 const timeRanges = {
   "Last 5 minutes": "now-5m",
@@ -21,9 +23,9 @@ const timeRanges = {
 };
 
 const refreshRanges = {
-  "5s":"5s",
-  "10s":"10s",
-  "30s":"30s",
+  "5s": "5s",
+  "10s": "10s",
+  "30s": "30s",
   "1m": "1m",
   "2m": "2m",
   "5m": "5m",
@@ -91,54 +93,27 @@ const BenchmarkGraph = () => {
   };
 
   return (
-    <div class="bg-gray-200 dark:bg-dark-teal overflow-x-hidden flex-auto w-auto" >
+    <div class="bg-gray-200 dark:bg-dark-teal overflow-x-hidden flex-auto w-auto">
       <BenchmarkGraphHeader
         isDarkTheme={isDarkTheme}
         toggleTheme={toggleTheme}
       />
 
-      <div className="flex flex-row justify-end">
-        <select id="time-range-select" onChange={handleTimeRangeChange} value={timeRange} className="px-4 py-2 rounded-md mt-4 mx-2 dark:bg-gray-800 dark:text-white shadow-md">
-          {Object.keys(timeRanges).map((key) => (
-            <option key={key} value={key} className="dark:text-white">
-              {key}
-            </option>
-          ))}
-        </select>
-
-        <select id="refresh-range-select" onChange={handleRefreshRangeChange} value={refreshTime} placeholder="refresh" className="px-4 py-2 rounded-md mt-4 mx-2  dark:bg-gray-800  dark:text-white shadow-md">
-          {Object.keys(refreshRanges).map((key) => (
-            <option key={key} value={key} className="dark:text-white">
-              {key}
-            </option>
-          ))}
-        </select>
-
-      </div>
-
-      <div className="flex flex-wrap rounded-1g p-4 gap-4 overflow-hidden justify-between bg-gray-200 dark:bg-dark-teal">
-        {sourcesToShow.map((source) => (
-          <iframe
-           className="grafana-iframe"
-            src={source.src}
-            width="auto"
-            height="auto"
-           
-          />
-        ))}
+      <div className="relative overflow-hidden p-4 w-100%" >
+        <div className=" shadow-md border-2 p-4 border-gray-400 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-800 ">
+          <ThroughPutGraph isDarkTheme={isDarkTheme} />
+        </div>
       </div>
       <div className="relative pb-56.25 overflow-hidden p-4 w-100%">
-        
-        {graphsToShow.map((source) => (
-          <iframe
-            className="grafana-iframe"
+        <div className=" shadow-md border-2 p-4 border-gray-400 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-800 ">
+          <Scheduled isDarkTheme={isDarkTheme} />
+        </div>
+      </div>
 
-            src={source.src}
-            
-            width="100%"
-            height="450"
-          />
-        ))}
+      <div className="relative pb-56.25 overflow-hidden p-4 w-100%">
+        <div className="shadow-md border-2 p-4 border-gray-400 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-800 ">
+          <PacketsGraph isDarkTheme={isDarkTheme} />
+        </div>
       </div>
     </div>
   );
