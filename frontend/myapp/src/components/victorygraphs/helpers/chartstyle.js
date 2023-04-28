@@ -76,5 +76,5 @@ export const YaxisProps = {
 };
 
 export const victorygroupstyle = {
-  data: { strokeWidth: 0.75, fillOpacity: 0.05 },
+  data: { strokeWidth: 0.75, fillOpacity: 0 },
 };

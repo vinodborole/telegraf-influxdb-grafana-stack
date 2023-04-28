@@ -1,9 +1,8 @@
-const host = "localhost";
-const grafanaUrl = `http://${host}:300`;
+const grafanaUrl = `${process.env.REACT_APP_GRAFANA_URL}`;
 
 const grafanaSourceSnap = {
   cpuusage: {
-    src: `${grafanaUrl}/d-solo/000000128/telegraf-system-dashboard?orgId=1&panelId=61861&color_scheme=red`,
+    src: `${grafanaUrl}/d-solo/000000128/telegraf-system-dashboard?orgId=1&panelId=61861`,
   },
   ramusage: {
     src: `${grafanaUrl}/d-solo/000000128/telegraf-system-dashboard?orgId=1&panelId=61860`,

@@ -1,0 +1,69 @@
+
+
+/* Custom styles */
+.sidebar {
+  background-color: #F5F5F5;
+}
+
+.dark .sidebar{
+  background-color: #00303f;
+}
+.menu {
+  padding: 20px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background-color:#00303f;
+}
+
+.menu-item.active {
+  background-color:#00303f;
+  color: #FFF;
+}
+
+.menu-item-icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.menu-item-label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Custom styles for expanded sidebar */
+.sidebar-expanded {
+  width: 200px;
+}
+
+.menu-expanded {
+  padding: 20px;
+}
+
+.menu-item-expanded {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.menu-item-icon-expanded {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.menu-item-label-expanded {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+

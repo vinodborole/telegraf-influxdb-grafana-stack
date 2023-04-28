@@ -30,13 +30,13 @@
 	transition: transform 0.2s linear;
 }
 .dark .ball{
-  background-color: #111827;
+  background-color: #00303f;
 }
 .checkbox:checked + .label .ball {
 	transform: translateX(24px);
 }
 .fa-moon{
-  color: #111827;
+  color: #00303f;
 }
 .fa-sun{
   color: #000000;

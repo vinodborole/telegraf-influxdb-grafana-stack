@@ -1,17 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import store from './components/store/store';
-import { Provider } from 'react-redux';
-import 'tailwindcss/base.css'
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import store from "./components/store/store";
+import { Provider } from "react-redux";
+import { ProSidebarProvider } from "react-pro-sidebar";
+import { PersistGate } from "redux-persist/integration/react";
+import {persistor} from "./components/store/store"
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <App/>
-
+    <ProSidebarProvider>
+    <PersistGate loading={null} persistor={persistor}>  <App /></PersistGate>
+    </ProSidebarProvider>
   </Provider>
 );
 

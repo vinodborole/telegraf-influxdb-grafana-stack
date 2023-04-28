@@ -1,9 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   VictoryChart,
   VictoryLine,
   VictoryAxis,
   VictoryScatter,
+  VictoryLegend,
   VictoryGroup,
   VictoryTheme,
   VictoryArea,
@@ -38,7 +39,34 @@ function ThroughPutGraph({ isDarkTheme }) {
   const [zoomaxis, setZoomaxis] = useState("null");
   const [checkboxX, setCheckboxX] = useState(false);
   const [checkboxY, setCheckboxY] = useState(false);
+  const [visibility, setVisibility] = useState({ dl: {}, ul: {} });
 
+  const toggleVisibility = (cellId, graphType) => {
+    setVisibility((prevVisibleData) => {
+      const graphVisibleData = prevVisibleData[graphType.toLowerCase()];
+      return {
+        ...prevVisibleData,
+        [graphType.toLowerCase()]: {
+          ...graphVisibleData,
+          [cellId]: !graphVisibleData[cellId],
+        },
+      };
+    });
+    console.log(visibility);
+  };
+
+  useEffect(() => {
+    setVisibility((prevVisibility) => {
+      const updatedVisibility = {};
+      Object.keys(prevVisibility).forEach((lineType) => {
+        updatedVisibility[lineType] = {};
+        Object.keys(data.cells).forEach((cellId) => {
+          updatedVisibility[lineType][cellId] = true;
+        });
+      });
+      return updatedVisibility;
+    });
+  }, []);
   const now = Date.now();
 
   for (let i = 0; i < 20; i++) {
@@ -47,31 +75,21 @@ function ThroughPutGraph({ isDarkTheme }) {
     cellData.forEach((cell) => {
       cell.dl.push({
         x: time,
-        y: cell.throughput.dl_bitrate+Math.floor(Math.random()*100000000)+1,
-
-        label: `cell#${cell.id}-dl:${BitrateConverter(
-          cell.throughput.dl_bitrate
-        )}`,
+        y:cell.throughput.dl_bitrate +Math.floor(Math.random() * 100000000) + 1,
       });
       cell.ul.push({
         x: time,
-        y: cell.throughput.ul_bitrate+Math.floor(Math.random()*10000000)+1,
-
-        label: `cell#${cell.id}-ul:${BitrateConverter(
-          cell.throughput.ul_bitrate
-        )}`,
+        y: cell.throughput.ul_bitrate + Math.floor(Math.random() * 10000000) + 1,
       });
     });
   }
 
-  
   const HandleCheckboxX = () => {
     setCheckboxX(!checkboxX);
   };
   const HandleCheckboxY = () => {
     setCheckboxY(!checkboxY);
   };
-
 
   useEffect(() => {
     if (checkboxX && checkboxY) {
@@ -84,7 +102,6 @@ function ThroughPutGraph({ isDarkTheme }) {
       setZoomaxis("null");
     }
   }, [checkboxX, checkboxY]);
-
 
   return (
     <div>
@@ -107,12 +124,11 @@ function ThroughPutGraph({ isDarkTheme }) {
               padding: chartStyles.tickLabelsPadding,
               fill: isDarkTheme ? "white" : "black",
             },
-            grid:{
-              stroke:"#D0D2D1",
-              strokeWidth:chartStyles.gridStoleWidth
+            grid: {
+              stroke: "#D0D2D1",
+              strokeWidth: chartStyles.gridStoleWidth,
             },
-            axis:{stroke:isDarkTheme ? "white":"black"}
-
+            axis: { stroke: isDarkTheme ? "white" : "black" },
           }}
         />
         <VictoryAxis
@@ -120,45 +136,135 @@ function ThroughPutGraph({ isDarkTheme }) {
           label="Throughput"
           tickFormat={BitrateConverter}
           style={{
-            axisLabel:{
-              fontSize:chartStyles.tickLabelsFontSize,
-              padding:27,
-              fill: isDarkTheme ? "white" : "black",},
+            axisLabel: {
+              fontSize: chartStyles.tickLabelsFontSize,
+              padding: 27,
+              fill: isDarkTheme ? "white" : "black",
+            },
             tickLabels: {
               fontSize: chartStyles.tickLabelsFontSize,
               padding: chartStyles.tickLabelsPadding,
               fill: isDarkTheme ? "white" : "black",
             },
-            grid:{
-              stroke:"#D0D2D1",
-              strokeWidth:chartStyles.gridStoleWidth
+            grid: {
+              stroke: "#D0D2D1",
+              strokeWidth: chartStyles.gridStoleWidth,
             },
-            axis:{stroke:isDarkTheme ? "white":"black"}
+            axis: { stroke: isDarkTheme ? "white" : "black" },
           }}
         />
 
         {cellData.map((dataSet, i) => (
           <VictoryGroup key={i} style={victorygroupstyle}>
-            <VictoryArea
+            <VictoryLine
               data={dataSet.dl}
-              label={({ datum }) => `${datum.label}`}
-              style={{ data: { fill: color_dl[i], stroke: color_dl[i] } }}
-              labelComponent={
-                <VictoryTooltip flyoutStyle={{ stroke: color_dl[i] }} />
-              }
+              style={{
+                data: {
+                  stroke: visibility.dl[dataSet.id]
+                    ? color_dl[i]
+                    : "transparent",
+                },
+              }}
             />
+            {visibility.dl[dataSet.id] && (
+              <VictoryScatter
+                style={{
+                  labels: { fill: color_dl[i] },
+                }}
+                labels={({ datum }) =>
+                  `Cell#${dataSet.id}_dl:${datum.y.toFixed(2)}`
+                }
+                size={({ active }) => (active ? 5 : 3)}
+                data={dataSet.dl}
+                labelComponent={<VictoryTooltip />}
+              />
+            )}
 
-            <VictoryArea
+            <VictoryLine
               data={dataSet.ul}
-              label={({ datum }) => `${datum.label}`}
-              style={{ data: { fill: color_ul[i], stroke: color_ul[i] } }}
-              labelComponent={
-                <VictoryTooltip flyoutStyle={{ stroke: color_ul[i] }} />
-              }
+              style={{
+                data: {
+                  stroke: visibility.ul[dataSet.id]
+                    ? color_ul[i]
+                    : "transparent",
+                },
+              }}
             />
+            {visibility.ul[dataSet.id] && (
+              <VictoryScatter
+                style={{
+                  labels: { fill: color_ul[i] },
+                }}
+                size={({ active }) => (active ? 5 : 3)}
+                data={dataSet.ul}
+                labels={({ datum }) =>
+                  `Cell#${dataSet.id}_ul_avg:${datum.y.toFixed(2)}`
+                }
+                labelComponent={
+                  visibility.ul[dataSet.id] ? <VictoryTooltip /> : null
+                }
+              />
+            )}
           </VictoryGroup>
         ))}
       </VictoryChart>
+      {cellData.map((dataSet, i) => (
+        <div key={i}>
+          <VictoryLegend
+            events={[
+              {
+                target: "data",
+                eventHandlers: {
+                  onClick: () => {
+                    toggleVisibility(dataSet.id, "DL");
+                  },
+                },
+              },
+            ]}
+            style={{
+              labels: {
+                fontSize: 5,
+                fontWeight: "bold",
+                fill: isDarkTheme ? "white" : "black",
+              },
+            }}
+            height={10}
+            data={[
+              {
+                name: `Cell#${dataSet.id}_dl_bitrate`,
+                symbol: { fill: color_dl[i], size: 2 },
+              },
+            ]}
+          />
+          <VictoryLegend
+            events={[
+              {
+                target: "data",
+                eventHandlers: {
+                  onClick: () => {
+                    toggleVisibility(dataSet.id, "UL");
+                  },
+                },
+              },
+            ]}
+            style={{
+              labels: {
+                fontSize: 5,
+                fontWeight: "bold",
+                fill: isDarkTheme ? "white" : "black",
+              },
+            }}
+            height={10}
+            padding={{ bottom: 5 }}
+            data={[
+              {
+                name: `Cell#${dataSet.id}_ul_bitrate`,
+                symbol: { fill: color_ul[i], size: 2 },
+              },
+            ]}
+          />
+        </div>
+      ))}
     </div>
   );
 }

@@ -7,7 +7,9 @@ module.exports = {
   theme: {
     extend:{
       colors:{
-        'dark-teal':'#00303f'
+        'simnovous-teal':'#00303f',
+        'simnovous-orange':'#ec691f',
+        'simnovous-dark-teal':"#1f2937",
       }
     }
   },
